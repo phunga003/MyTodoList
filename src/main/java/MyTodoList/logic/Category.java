@@ -1,11 +1,14 @@
 package MyTodoList.logic;
 
-public class Category implements Comparable<Category> {
-    private String name;
+import java.util.ArrayList;
 
+class Category {
+    String name;
+    ArrayList<Task> tasks;
 
-    @Override
-    public int compareTo(Category c) {
-        return this.name.compareTo(c.name);
+    public Category(String name) {
+        this.name = name;
+        this.tasks = new ArrayList<>();
     }
+
 }
