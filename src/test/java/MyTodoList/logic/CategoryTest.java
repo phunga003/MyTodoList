@@ -36,5 +36,25 @@ public class CategoryTest {
         Assertions.assertTrue(failed);
     }
 
+    @Test
+    void CategoryTest04_adding_many_task() {
+        Category category = new Category("Fred");
+        category.addTask(new Task("ar"));
+        category.addTask(new Task("arr"));
+        category.addTask(new Task("arrr"));
+        category.addTask(new Task("arrrr"));
+
+        Assertions.assertEquals(4, category.tasks.size());
+
+        for (Task t : category.tasks) {
+            try {
+                category.addTask(new Task(t.name));
+            } catch (RuntimeException e) {
+                Assertions.assertEquals("Task with the same name already existed", e.getMessage());
+            }
+        }
+
+        Assertions.assertEquals(4, category.tasks.size());
+    }
 
 }
