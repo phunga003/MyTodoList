@@ -27,17 +27,21 @@ A todo list application in java 17
 
 ### Design Notes
 
+- Business operations should fail loudly and handled by Main, easier to maintain.
 - Since sorting is not needed, a collection of task can be an arraylist
 - A Category contains an arraylist of tasks
   - Alternatively, Category and tasks can be a 2D array
-    - Assume that there will be more extensions made to Category in the future, having them as classes is more
+    - Assume that there will be more extensions made to Category and Task in the future, having them as classes is more
       convenient
+    - Task implement comparable to check for existing duplicate
+      - Using Sets to ensure this produce quiet fails, and hard to implement sort-related features
+      - O(n) where n is the number of tasks in a category -> not too bad that warrant optimization
 
 - Serialization is an interface, so future serializers can be implemented easily
 - task will be queried by index within a category
-  - Since after a mutation the index will shift, the system _must_ display the current state of the todo list after all
+  - Since after a mutation the index will shift, the system _MUST_ display the current state of the todo list after all
     mutation operations
-  - Category lookup will be in O(n) time, acceptable since user won't need milions of categories stored. If so, a
+  - Category lookup will be in O(n) time, acceptable since user won't need millions of categories stored. If so, a
     database server is recommended
 
 ### Diagrams

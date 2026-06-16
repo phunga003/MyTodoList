@@ -19,4 +19,22 @@ public class CategoryTest {
         category.addTask(new Task("Fazz"));
         Assertions.assertEquals("Fazz", category.tasks.get(0).name);
     }
+
+    @Test
+    void CategoryTest03_disallow_duplicate_tasks() {
+        boolean failed = false;
+        Category category = new Category("Fred");
+        category.addTask(new Task("Fazz"));
+
+        try {
+            category.addTask(new Task("Fazz"));
+        } catch (RuntimeException e) {
+            Assertions.assertEquals("Task with the same name already existed", e.getMessage());
+            failed = true;
+        }
+
+        Assertions.assertTrue(failed);
+    }
+
+
 }

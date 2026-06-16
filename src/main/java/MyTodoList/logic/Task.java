@@ -9,6 +9,6 @@ public class Task implements Comparable<Task> {
 
     @Override
     public int compareTo(Task t) {
-        return 0;
+        return this.name.compareTo(t.name);
     }
 }

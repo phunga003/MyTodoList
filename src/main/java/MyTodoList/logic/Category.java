@@ -12,13 +12,20 @@ class Category {
     }
 
     void addTask(Task task) {
-        if (isNotDuplicateTask(task))
+        if (tasks.isEmpty()) {
             this.tasks.add(task);
+        } else if (isNotDuplicateTask(task))
+            this.tasks.add(task);
+        else {
+            throw new IllegalArgumentException("Task with the same name already existed");
+        }
     }
 
     private boolean isNotDuplicateTask(Task task) {
         for (Task t : this.tasks) {
-
+            if (t.compareTo(task) == 0) {
+                return false;
+            }
         }
         return true;
     }
