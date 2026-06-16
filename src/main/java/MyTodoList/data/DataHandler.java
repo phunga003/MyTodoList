@@ -1,6 +1,6 @@
 package MyTodoList.data;
 
-public interface DataHandler {
+interface DataHandler {
     void Serialize();
 
     void Deserialize();

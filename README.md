@@ -18,6 +18,9 @@ A todo list application in java 17
 - Sorting tasks
 - complex UI outside of CLI
 - Hosing a version of the app
+- Atomicity of serialization
+
+## Application Limitations
 
 ## Design
 
@@ -28,6 +31,12 @@ A todo list application in java 17
   - Alternatively, Category and tasks can be a 2D array
     - Assume that there will be more extensions made to Category in the future, having them as classes is more
       convenient
+
 - Serialization is an interface, so future serializers can be implemented easily
+- task will be queried by index within a category
+  - Since after a mutation the index will shift, the system _must_ display the current state of the todo list after all
+    mutation operations
+  - Category lookup will be in O(n) time, acceptable since user won't need milions of categories stored. If so, a
+    database server is recommended
 
 ### Diagrams
