@@ -12,4 +12,11 @@ public class CategoryTest {
         Assertions.assertEquals(0, category.tasks.size());
         Assertions.assertEquals("Fred", category.name);
     }
+
+    @Test
+    void CategoryTest02_simple_add_task() {
+        Category category = new Category("Fred");
+        category.addTask(new Task("Fazz"));
+        Assertions.assertEquals("Fazz", category.tasks.get(0).name);
+    }
 }

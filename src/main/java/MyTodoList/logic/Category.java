@@ -11,4 +11,16 @@ class Category {
         this.tasks = new ArrayList<>();
     }
 
+    void addTask(Task task) {
+        if (isNotDuplicateTask(task))
+            this.tasks.add(task);
+    }
+
+    private boolean isNotDuplicateTask(Task task) {
+        for (Task t : this.tasks) {
+
+        }
+        return true;
+    }
+
 }
