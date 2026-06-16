@@ -7,12 +7,9 @@ public class TaskTest {
     @Test
     void TaskTest01_simple_construct() {
         String expectedName = "FizzBuzz123";
-        String expectedDesc = "foobar";
-        Task task = new Task("FizzBuzz123", "foobar");
+        Task task = new Task("FizzBuzz123");
 
         Assertions.assertEquals(expectedName, task.name);
-        Assertions.assertEquals(expectedDesc, task.description);
-
-
     }
+
 }

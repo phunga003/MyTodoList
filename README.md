@@ -19,6 +19,7 @@ A todo list application in java 17
 - complex UI outside of CLI
 - Hosing a version of the app
 - Atomicity of serialization
+- Descriptions in tasks (it is not strictly required)
 
 ## Application Limitations
 
