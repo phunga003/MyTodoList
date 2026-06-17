@@ -1,7 +1,12 @@
 package MyTodoList.data;
 
-interface DataHandler {
-    void Serialize();
+import MyTodoList.logic.Category;
 
-    void Deserialize();
+import java.util.ArrayList;
+
+public interface DataHandler {
+
+    void serialize(ArrayList<Category> db);
+
+    ArrayList<Category> deserialize();
 }

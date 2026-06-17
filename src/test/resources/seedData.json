@@ -1,0 +1,30 @@
+[
+  {
+    "name": "default",
+    "tasks": [
+      {
+        "name": "hello"
+      },
+      {
+        "name": "world"
+      },
+      {
+        "name": "how are you"
+      }
+    ]
+  },
+  {
+    "name": "c2",
+    "tasks": [
+      {
+        "name": "ciao"
+      },
+      {
+        "name": "Joe"
+      },
+      {
+        "name": "fizzy"
+      }
+    ]
+  }
+]

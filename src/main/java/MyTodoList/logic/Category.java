@@ -2,7 +2,7 @@ package MyTodoList.logic;
 
 import java.util.ArrayList;
 
-class Category implements Comparable<Category> {
+public class Category implements Comparable<Category> {
     String name;
     ArrayList<Task> tasks;
     private static final int N_INDEX = 1;

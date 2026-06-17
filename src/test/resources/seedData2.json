@@ -1,0 +1,27 @@
+[
+  {
+    "name": "default",
+    "tasks": [
+      {
+        "name": "go on a run"
+      },
+      {
+        "name": "eat breakfast"
+      },
+      {
+        "name": "presentation"
+      }
+    ]
+  },
+  {
+    "name": "Urgent",
+    "tasks": [
+      {
+        "name": "call Tom"
+      },
+      {
+        "name": "File Reports"
+      }
+    ]
+  }
+]

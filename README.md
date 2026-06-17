@@ -19,7 +19,12 @@ A todo list application in java 17
 - complex UI outside of CLI
 - Hosing a version of the app
 - Atomicity of serialization
+  - Tests for this is hard to set up
 - Descriptions in tasks (it is not strictly required)
+- Writing data to multiple files
+- Cleaning up bad seed data
+  - The system will assume that provided data seed is in the correct format
+  - 'default' must exist as a category in the seed data
 
 ## Application Limitations
 

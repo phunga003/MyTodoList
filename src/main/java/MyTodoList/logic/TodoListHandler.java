@@ -1,15 +1,30 @@
 package MyTodoList.logic;
 
+import MyTodoList.data.DataHandler;
+import MyTodoList.data.GsonDataHandler;
+
 import java.util.ArrayList;
 
 public class TodoListHandler {
     ArrayList<Category> todoList;
     Category defaultCategory;
+    DataHandler dataHandler;
 
     public TodoListHandler() {
-        todoList = new ArrayList<>();
+        this.todoList = new ArrayList<>();
         this.defaultCategory = new Category("default");
-        todoList.add(defaultCategory);
+        this.todoList.add(defaultCategory);
+        this.dataHandler = new GsonDataHandler("MyTodoListData.json");
+
+    }
+
+    public TodoListHandler(String filepath) {
+        this.todoList = new ArrayList<>();
+        this.defaultCategory = new Category("default");
+        this.todoList.add(defaultCategory);
+
+        this.dataHandler = new GsonDataHandler(filepath);
+
     }
 
     public void addTask(Task task, String categoryName) {
@@ -109,5 +124,13 @@ public class TodoListHandler {
             throw new RuntimeException("[removeCategory] : " + e.getMessage());
         }
 
+    }
+
+    void loadDataFromFile() {
+        this.todoList = dataHandler.deserialize();
+    }
+
+    void writeDataToFile() {
+        dataHandler.serialize(this.todoList);
     }
 }
