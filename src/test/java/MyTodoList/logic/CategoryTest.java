@@ -127,7 +127,7 @@ public class CategoryTest {
     }
 
     @Test
-    void CategoryTest08_get_category_string() {
+    void CategoryTest08_get_category_string_one_task() {
         Category category = new Category("Larry");
         category.addTask(new Task("t1"));
 
@@ -137,7 +137,22 @@ public class CategoryTest {
     @Test
     void CategoryTest09_get_category_string_no_task() {
         Category category = new Category("Larry");
-        Assertions.assertEquals("[ Larry ]\n\n", category.getCategoryString());
+        Assertions.assertEquals(
+                "[ Larry ]\n\n",
+                category.getCategoryString());
     }
+
+    @Test
+    void CategoryTest10_get_category_string_multi_task() {
+        Category category = new Category("Larry");
+        category.addTask(new Task("t1"));
+        category.addTask(new Task("t2"));
+        category.addTask(new Task("t3"));
+
+        Assertions.assertEquals(
+                "[ Larry ]\n\t1. t1\n\t2. t2\n\t3. t3\n\n",
+                category.getCategoryString());
+    }
+
 
 }
