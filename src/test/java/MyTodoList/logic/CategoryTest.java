@@ -134,4 +134,10 @@ public class CategoryTest {
         Assertions.assertEquals("[ Larry ]\n\t1. t1\n\n", category.getCategoryString());
     }
 
+    @Test
+    void CategoryTest09_get_category_string_no_task() {
+        Category category = new Category("Larry");
+        Assertions.assertEquals("[ Larry ]\n\n", category.getCategoryString());
+    }
+
 }
