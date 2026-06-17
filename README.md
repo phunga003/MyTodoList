@@ -28,6 +28,7 @@ A todo list application in java 17
 ### Design Notes
 
 - Business operations should fail loudly and handled by Main, easier to maintain.
+  - Disclaimer: All exceptions thrown are unchecked, caller verify
 - Since sorting is not needed, a collection of task can be an arraylist
 - A Category contains an arraylist of tasks
   - Alternatively, Category and tasks can be a 2D array
@@ -43,5 +44,8 @@ A todo list application in java 17
     mutation operations
   - Category lookup will be in O(n) time, acceptable since user won't need millions of categories stored. If so, a
     database server is recommended
+
+- the database will always have a default category for safe category deletion (special case object)
+  - system will support moving task between category for ease of use
 
 ### Diagrams

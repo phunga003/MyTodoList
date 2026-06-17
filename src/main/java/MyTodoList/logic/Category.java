@@ -5,7 +5,7 @@ import java.util.ArrayList;
 class Category {
     String name;
     ArrayList<Task> tasks;
-    static final int N_INDEX = 1;
+    private static final int N_INDEX = 1;
 
     public Category(String name) {
         this.name = name;
@@ -48,7 +48,7 @@ class Category {
         return this.removeTask(index - N_INDEX);
     }
 
-    public String getCategoryString() {
+    String getCategoryString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[ ");
         sb.append(this.name);
@@ -65,5 +65,15 @@ class Category {
         }
 
         return sb.append("\n").toString();
+    }
+
+    // for testing use
+    Boolean taskNameIsInCategory(String taskName) {
+        for (Task t : this.tasks) {
+            if (t.name.equals(taskName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
