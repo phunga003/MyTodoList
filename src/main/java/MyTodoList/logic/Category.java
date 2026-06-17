@@ -12,7 +12,7 @@ class Category {
     }
 
     void addTask(Task task) {
-        if (tasks.isEmpty()) {
+        if (this.tasks.isEmpty()) {
             this.tasks.add(task);
         } else if (isNotDuplicateTask(task))
             this.tasks.add(task);
@@ -28,6 +28,18 @@ class Category {
             }
         }
         return true;
+    }
+
+    Task removeTask(int index) {
+        if (this.tasks.isEmpty()) {
+            throw new IllegalArgumentException("No task exists in this category");
+        }
+
+        if (index < 0 || this.tasks.size() - 1 < index) {
+            throw new IllegalArgumentException("No task with the index " + index + " exists in this category");
+        }
+
+        return this.tasks.remove(index);
     }
 
 }

@@ -54,7 +54,80 @@ public class CategoryTest {
             }
         }
 
+        // Ensure no new entries are added illegally
         Assertions.assertEquals(4, category.tasks.size());
+    }
+
+    @Test
+    void CategoryTest05_remove_task_simple() {
+        Category category = new Category("Cooper");
+        category.addTask(new Task("t1"));
+
+        Task removedTask = category.removeTask(0);
+        Assertions.assertEquals(0, category.tasks.size());
+        Assertions.assertEquals("t1", removedTask.name);
+    }
+
+    @Test
+    void CategoryTest05_remove_task_arbitrary_idx_out_of_range() {
+        Category category = new Category("Cooper");
+        category.addTask(new Task("t1"));
+
+        boolean failed = false;
+        try {
+            category.removeTask(1);
+        } catch (RuntimeException e) {
+            Assertions.assertEquals("No task with the index 1 exists in this category", e.getMessage());
+            failed = true;
+        }
+
+        Assertions.assertTrue(failed);
+    }
+
+    @Test
+    void CategoryTest06_remove_task_arbitrary_idx_out_of_range_negative() {
+        Category category = new Category("Cooper");
+        category.addTask(new Task("t1"));
+
+        boolean failed = false;
+        try {
+            category.removeTask(-1);
+        } catch (RuntimeException e) {
+            Assertions.assertEquals("No task with the index -1 exists in this category", e.getMessage());
+            failed = true;
+        }
+
+        Assertions.assertTrue(failed);
+    }
+
+    @Test
+        // NOTE: This test assumes tasks is sorted by order of insert,
+        // and the tasks are being kept as an arraylist and performs a
+        // call-through to ArrayList.remove()
+        // Suggestion for extending Category: inherit Category and implement a sort() function
+    void CategoryTest07_remove_task_arbitrary_idx() {
+        Category category = new Category("Sam");
+        category.addTask(new Task("t1"));
+        category.addTask(new Task("t3"));
+        category.addTask(new Task("t2"));
+        category.addTask(new Task("t4"));
+
+        Task taskRemoved = category.tasks.remove(2);
+        Assertions.assertEquals("t2", taskRemoved.name);
+
+        taskRemoved = category.tasks.remove(2);
+        Assertions.assertEquals("t4", taskRemoved.name);
+
+        taskRemoved = category.tasks.remove(0);
+        Assertions.assertEquals("t1", taskRemoved.name);
+
+        Task remainingTask = category.tasks.get(0);
+        Assertions.assertEquals("t3", remainingTask.name);
+
+    }
+
+    void CategoryTest08_get_category_string() {
+
     }
 
 }
