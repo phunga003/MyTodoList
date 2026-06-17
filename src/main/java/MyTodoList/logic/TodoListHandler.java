@@ -55,11 +55,19 @@ public class TodoListHandler {
 
     // Note:  index is n-indexed, handled by callee. check Category::N_INDEX
     public Task removeTask(int index, String categoryName) {
+        Category targetCategory;
+
         try {
-            Category targetCategory = getCategoryByName(categoryName, false);
-            return targetCategory.indexedRemoveTaskDecorator(index);
+            targetCategory = getCategoryByName(categoryName, false);
+
         } catch (RuntimeException e) {
             throw new RuntimeException("[removeTask] : " + e.getMessage());
+        }
+
+        try {
+            return targetCategory.indexedRemoveTaskDecorator(index);
+        } catch (RuntimeException e) {
+            throw new IllegalArgumentException("[removeTask] : The specified task does not exists in this category");
         }
     }
 

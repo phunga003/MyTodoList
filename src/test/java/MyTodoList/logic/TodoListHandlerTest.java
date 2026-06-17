@@ -63,7 +63,7 @@ public class TodoListHandlerTest {
             Assertions.assertEquals("fizzbuzz", targetTask.name);
         } catch (RuntimeException e) {
             failed = true;
-            Assertions.assertEquals("[removeTask] : No task exists in this category", e.getMessage());
+            Assertions.assertEquals("[removeTask] : The specified task does not exists in this category", e.getMessage());
 
         }
 
@@ -84,7 +84,7 @@ public class TodoListHandlerTest {
             Assertions.assertEquals("fizzbuzz", targetTask.name);
         } catch (RuntimeException e) {
             failed = true;
-            Assertions.assertEquals("[removeTask] : No task with the index 1 exists in this category", e.getMessage());
+            Assertions.assertEquals("[removeTask] : The specified task does not exists in this category", e.getMessage());
 
         }
 
@@ -105,7 +105,7 @@ public class TodoListHandlerTest {
             Assertions.assertEquals("fizzbuzz", targetTask.name);
         } catch (RuntimeException e) {
             failed = true;
-            Assertions.assertEquals("[removeTask] : No task with the index -2 exists in this category", e.getMessage());
+            Assertions.assertEquals("[removeTask] : The specified task does not exists in this category", e.getMessage());
 
         }
 
