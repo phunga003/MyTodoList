@@ -48,7 +48,7 @@ public class CategoryTest {
 
         for (Task t : category.tasks) {
             try {
-                category.tasks.add(new Task(t.name));
+                category.addTask(new Task(t.name));
             } catch (RuntimeException e) {
                 Assertions.assertEquals("Task with the same name already existed", e.getMessage());
             }
