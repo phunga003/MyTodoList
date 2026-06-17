@@ -113,4 +113,24 @@ public class TodoListHandlerTest {
 
     }
 
+    @Test
+    void TodoListHandlerTest07_remove_Task_category_not_exist() {
+        TodoListHandler handler = new TodoListHandler();
+
+        boolean failed = false;
+        try {
+            Task targetTask = handler.removeTask(-1, "foobar");
+            Assertions.assertEquals("fizzbuzz", targetTask.name);
+        } catch (RuntimeException e) {
+            failed = true;
+            Assertions.assertEquals(
+                    "[removeTask] : Category 'foobar' not found",
+                    e.getMessage());
+
+        }
+
+        Assertions.assertTrue(failed);
+
+    }
+
 }
