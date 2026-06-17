@@ -23,7 +23,7 @@ public class TodoListHandler {
         }
     }
 
-    private Category getCategoryByName(String categoryName, boolean createIfNotFound) {
+    Category getCategoryByName(String categoryName, boolean createIfNotFound) {
         for (Category c : todoList) {
             if (c.name.equals(categoryName)) {
                 return c;
@@ -72,7 +72,19 @@ public class TodoListHandler {
     }
 
     public void moveTask(String srcCategoryName, int srcIndex, String destCategoryName) {
+        try {
+            Category src = getCategoryByName(srcCategoryName, false);
+            Category dest = getCategoryByName(destCategoryName, true);
 
+            if (src.compareTo(dest) == 0) {
+                throw new IllegalArgumentException("Task already in category");
+            }
+
+            dest.addTask(src.removeTask(srcIndex));
+
+        } catch (RuntimeException e) {
+            throw new RuntimeException("[moveTask] : " + e.getMessage());
+        }
     }
 
     public void removeCategory(String categoryName) {

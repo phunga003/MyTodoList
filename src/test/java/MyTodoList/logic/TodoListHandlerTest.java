@@ -165,6 +165,100 @@ public class TodoListHandlerTest {
                 handler.getDbString());
     }
 
+    @Test
+    void TodoListHandlerTest11_moveTask_both_category_exist() {
+        TodoListHandler handler = new TodoListHandler();
+        handler.defaultCategory.tasks.add(new Task("Drink Matcha Labubu"));
+
+        Category category = new Category("foobar");
+        category.tasks.add(new Task("fazzbear"));
+        category.tasks.add(new Task("fizzfazz"));
+        handler.todoList.add(category);
+
+        handler.moveTask("foobar", 0, "default");
+        Task movedTask = handler.defaultCategory.tasks.get(1);
+        Assertions.assertEquals("fazzbear", movedTask.name);
+
+        Assertions.assertEquals(1, category.tasks.size());
+    }
+
+    @Test
+    void TodoListHandlerTest12_moveTask_dest_not_exist() {
+        TodoListHandler handler = new TodoListHandler();
+        handler.defaultCategory.tasks.add(new Task("Drink Matcha Labubu"));
+
+        Category category = new Category("foobar");
+        category.tasks.add(new Task("fazzbear"));
+        category.tasks.add(new Task("fizzfazz"));
+        handler.todoList.add(category);
+
+        handler.moveTask("foobar", 0, "hello");
+        Category newCategory = handler.getCategoryByName("hello", false);
+        Assertions.assertEquals("fazzbear", newCategory.tasks.get(0).name);
+    }
+
+    @Test
+    void TodoListHandlerTest13_moveTask_src_not_exist() {
+        TodoListHandler handler = new TodoListHandler();
+        handler.defaultCategory.tasks.add(new Task("Drink Matcha Labubu"));
+
+
+        boolean failed = false;
+        try {
+            handler.moveTask("foobar", 0, "default");
+        } catch (RuntimeException e) {
+            failed = true;
+            Assertions.assertEquals(
+                    "[moveTask] : Category 'foobar' not found",
+                    e.getMessage());
+
+        }
+
+        Assertions.assertTrue(failed);
+
+    }
+
+    @Test
+    void TodoListHandlerTest14_moveTask_same_category() {
+        TodoListHandler handler = new TodoListHandler();
+        handler.defaultCategory.tasks.add(new Task("Drink Matcha Labubu"));
+
+
+        boolean failed = false;
+        try {
+            handler.moveTask("default", 0, "default");
+        } catch (RuntimeException e) {
+            failed = true;
+            Assertions.assertEquals(
+                    "[moveTask] : Task already in category",
+                    e.getMessage());
+
+        }
+
+        Assertions.assertTrue(failed);
+
+    }
+
+    @Test
+    void TodoListHandlerTest13_moveTask_index_invalid() {
+        TodoListHandler handler = new TodoListHandler();
+        handler.defaultCategory.tasks.add(new Task("Drink Matcha Labubu"));
+
+
+        boolean failed = false;
+        try {
+            handler.moveTask("default", -1, "newCat");
+        } catch (RuntimeException e) {
+            failed = true;
+            Assertions.assertEquals(
+                    "[moveTask] : No task with the index -1 exists in this category",
+                    e.getMessage());
+
+        }
+
+        Assertions.assertTrue(failed);
+
+    }
 
 
 

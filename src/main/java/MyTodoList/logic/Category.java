@@ -2,7 +2,7 @@ package MyTodoList.logic;
 
 import java.util.ArrayList;
 
-class Category {
+class Category implements Comparable<Category> {
     String name;
     ArrayList<Task> tasks;
     private static final int N_INDEX = 1;
@@ -80,4 +80,8 @@ class Category {
         return false;
     }
 
+    @Override
+    public int compareTo(Category c) {
+        return this.name.compareTo(c.name);
+    }
 }
