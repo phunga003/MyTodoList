@@ -133,4 +133,39 @@ public class TodoListHandlerTest {
 
     }
 
+    @Test
+    void TodoListHandlerTest08_getDbString_empty() {
+        TodoListHandler handler = new TodoListHandler();
+        Assertions.assertEquals(
+                "Todo List Empty",
+                handler.getDbString());
+    }
+
+    @Test
+    void TodoListHandlerTest09_getDbString_default_one_category() {
+        TodoListHandler handler = new TodoListHandler();
+        handler.defaultCategory.tasks.add(new Task("Drink Matcha Labubu"));
+        Assertions.assertEquals(
+                "[ default ]\n\t1. Drink Matcha Labubu\n\n",
+                handler.getDbString());
+    }
+
+    @Test
+    void TodoListHandlerTest10_getDbString_default_many_category() {
+        TodoListHandler handler = new TodoListHandler();
+        handler.defaultCategory.tasks.add(new Task("Drink Matcha Labubu"));
+
+        Category category = new Category("foobar");
+        category.tasks.add(new Task("fazzbear"));
+        category.tasks.add(new Task("fizzfazz"));
+        handler.todoList.add(category);
+
+        Assertions.assertEquals(
+                "[ default ]\n\t1. Drink Matcha Labubu\n\n[ foobar ]\n\t1. fazzbear\n\t2. fizzfazz\n\n",
+                handler.getDbString());
+    }
+
+
+
+
 }

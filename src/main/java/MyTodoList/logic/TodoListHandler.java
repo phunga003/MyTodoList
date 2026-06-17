@@ -51,10 +51,31 @@ public class TodoListHandler {
     }
 
     public String getDbString() {
-        return null;
+        if (this.isEmpty()) {
+            return "Todo List Empty";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (Category c : todoList) {
+            sb.append(c.getCategoryString());
+        }
+
+        return sb.toString();
+    }
+
+    private boolean isEmpty() {
+        if (this.todoList.size() == 1) {
+            return this.defaultCategory.tasks.isEmpty();
+        }
+
+        return false;
     }
 
     public void moveTask(String srcCategoryName, int srcIndex, String destCategoryName) {
+
+    }
+
+    public void removeCategory(String categoryName) {
 
     }
 }
