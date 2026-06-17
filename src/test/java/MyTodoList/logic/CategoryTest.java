@@ -39,16 +39,16 @@ public class CategoryTest {
     @Test
     void CategoryTest04_adding_many_task() {
         Category category = new Category("Fred");
-        category.addTask(new Task("ar"));
-        category.addTask(new Task("arr"));
-        category.addTask(new Task("arrr"));
-        category.addTask(new Task("arrrr"));
+        category.tasks.add(new Task("ar"));
+        category.tasks.add(new Task("arr"));
+        category.tasks.add(new Task("arrr"));
+        category.tasks.add(new Task("arrrr"));
 
         Assertions.assertEquals(4, category.tasks.size());
 
         for (Task t : category.tasks) {
             try {
-                category.addTask(new Task(t.name));
+                category.tasks.add(new Task(t.name));
             } catch (RuntimeException e) {
                 Assertions.assertEquals("Task with the same name already existed", e.getMessage());
             }
@@ -61,7 +61,7 @@ public class CategoryTest {
     @Test
     void CategoryTest05_remove_task_simple() {
         Category category = new Category("Cooper");
-        category.addTask(new Task("t1"));
+        category.tasks.add(new Task("t1"));
 
         Task removedTask = category.removeTask(0);
         Assertions.assertEquals(0, category.tasks.size());
@@ -71,7 +71,7 @@ public class CategoryTest {
     @Test
     void CategoryTest05_remove_task_arbitrary_idx_out_of_range() {
         Category category = new Category("Cooper");
-        category.addTask(new Task("t1"));
+        category.tasks.add(new Task("t1"));
 
         boolean failed = false;
         try {
@@ -87,7 +87,7 @@ public class CategoryTest {
     @Test
     void CategoryTest06_remove_task_arbitrary_idx_out_of_range_negative() {
         Category category = new Category("Cooper");
-        category.addTask(new Task("t1"));
+        category.tasks.add(new Task("t1"));
 
         boolean failed = false;
         try {
@@ -107,10 +107,10 @@ public class CategoryTest {
         // Suggestion for extending Category: inherit Category and implement a sort() function
     void CategoryTest07_remove_task_arbitrary_idx() {
         Category category = new Category("Sam");
-        category.addTask(new Task("t1"));
-        category.addTask(new Task("t3"));
-        category.addTask(new Task("t2"));
-        category.addTask(new Task("t4"));
+        category.tasks.add(new Task("t1"));
+        category.tasks.add(new Task("t3"));
+        category.tasks.add(new Task("t2"));
+        category.tasks.add(new Task("t4"));
 
         Task taskRemoved = category.tasks.remove(2);
         Assertions.assertEquals("t2", taskRemoved.name);
@@ -129,7 +129,7 @@ public class CategoryTest {
     @Test
     void CategoryTest08_get_category_string_one_task() {
         Category category = new Category("Larry");
-        category.addTask(new Task("t1"));
+        category.tasks.add(new Task("t1"));
 
         Assertions.assertEquals("[ Larry ]\n\t1. t1\n\n", category.getCategoryString());
     }
@@ -145,9 +145,9 @@ public class CategoryTest {
     @Test
     void CategoryTest10_get_category_string_multi_task() {
         Category category = new Category("Larry");
-        category.addTask(new Task("t1"));
-        category.addTask(new Task("t2"));
-        category.addTask(new Task("t3"));
+        category.tasks.add(new Task("t1"));
+        category.tasks.add(new Task("t2"));
+        category.tasks.add(new Task("t3"));
 
         Assertions.assertEquals(
                 "[ Larry ]\n\t1. t1\n\t2. t2\n\t3. t3\n\n",

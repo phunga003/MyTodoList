@@ -13,7 +13,7 @@ public class TodoListHandler {
     }
 
     public void addTask(Task task, String categoryName) {
-        Category targetCategory = getCategoryByName(categoryName);
+        Category targetCategory = getCategoryByName(categoryName, true);
 
         try {
             targetCategory.addTask(task);
@@ -23,24 +23,31 @@ public class TodoListHandler {
         }
     }
 
-    private Category getCategoryByName(String categoryName) {
+    private Category getCategoryByName(String categoryName, boolean createIfNotFound) {
         for (Category c : todoList) {
             if (c.name.equals(categoryName)) {
                 return c;
             }
         }
 
-        Category newCat = new Category(categoryName);
-        todoList.add(newCat);
-        return newCat;
+        if (createIfNotFound) {
+            Category newCat = new Category(categoryName);
+            todoList.add(newCat);
+            return newCat;
+        }
+
+        throw new RuntimeException("Category '" + categoryName + "' not found");
+
     }
 
-    public Task getTask(int index, String categoryName) {
-        return null;
-    }
-
+    // Note:  index is n-indexed, handled by callee. check Category::N_INDEX
     public Task removeTask(int index, String categoryName) {
-        return null;
+        try {
+            Category targetCategory = getCategoryByName(categoryName, false);
+            return targetCategory.removeTask(index);
+        } catch (RuntimeException e) {
+            throw new RuntimeException("[removeTask] : " + e.getMessage());
+        }
     }
 
     public String getDbString() {

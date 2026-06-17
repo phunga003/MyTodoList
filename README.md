@@ -23,6 +23,8 @@ A todo list application in java 17
 
 ## Application Limitations
 
+- Test suite does cross-calling for some tests, which is
+
 ## Design
 
 ### Design Notes

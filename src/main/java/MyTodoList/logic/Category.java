@@ -31,7 +31,7 @@ class Category {
         return true;
     }
 
-    Task removeTask(int index) {
+    private void verifyIndex(int index) {
         if (this.tasks.isEmpty()) {
             throw new IllegalArgumentException("No task exists in this category");
         }
@@ -39,7 +39,10 @@ class Category {
         if (index < 0 || this.tasks.size() - 1 < index) {
             throw new IllegalArgumentException("No task with the index " + index + " exists in this category");
         }
+    }
 
+    Task removeTask(int index) {
+        verifyIndex(index);
         return this.tasks.remove(index);
     }
 
@@ -76,4 +79,5 @@ class Category {
         }
         return false;
     }
+
 }

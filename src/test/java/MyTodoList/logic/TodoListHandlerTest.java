@@ -36,5 +36,81 @@ public class TodoListHandlerTest {
         Assertions.assertEquals("fizzbuzz", targetTask.name);
     }
 
+    @Test
+    void TodoListHandlerTest04_remove_Task_simple() {
+        TodoListHandler handler = new TodoListHandler();
+        Category category = new Category("foobar");
+        category.tasks.add(new Task("fizzbuzz"));
+        category.tasks.add(new Task("fazzbear"));
+        handler.todoList.add(category);
+
+        Task targetTask = handler.removeTask(0, "foobar");
+        Assertions.assertEquals("fizzbuzz", targetTask.name);
+
+        Assertions.assertFalse(category.taskNameIsInCategory("fizzbuzz"));
+        Assertions.assertEquals(1, category.tasks.size());
+    }
+
+    @Test
+    void TodoListHandlerTest04_remove_Task_not_exist() {
+        TodoListHandler handler = new TodoListHandler();
+        Category category = new Category("foobar");
+        handler.todoList.add(category);
+
+        boolean failed = false;
+        try {
+            Task targetTask = handler.removeTask(0, "foobar");
+            Assertions.assertEquals("fizzbuzz", targetTask.name);
+        } catch (RuntimeException e) {
+            failed = true;
+            Assertions.assertEquals("[removeTask] : No task exists in this category", e.getMessage());
+
+        }
+
+        Assertions.assertTrue(failed);
+
+    }
+
+    @Test
+    void TodoListHandlerTest05_remove_Task_not_exist() {
+        TodoListHandler handler = new TodoListHandler();
+        Category category = new Category("foobar");
+        category.tasks.add(new Task("fazzbear"));
+        handler.todoList.add(category);
+
+        boolean failed = false;
+        try {
+            Task targetTask = handler.removeTask(1, "foobar");
+            Assertions.assertEquals("fizzbuzz", targetTask.name);
+        } catch (RuntimeException e) {
+            failed = true;
+            Assertions.assertEquals("[removeTask] : No task with the index 1 exists in this category", e.getMessage());
+
+        }
+
+        Assertions.assertTrue(failed);
+
+    }
+
+    @Test
+    void TodoListHandlerTest06_remove_Task_not_exist() {
+        TodoListHandler handler = new TodoListHandler();
+        Category category = new Category("foobar");
+        category.tasks.add(new Task("fazzbear"));
+        handler.todoList.add(category);
+
+        boolean failed = false;
+        try {
+            Task targetTask = handler.removeTask(-1, "foobar");
+            Assertions.assertEquals("fizzbuzz", targetTask.name);
+        } catch (RuntimeException e) {
+            failed = true;
+            Assertions.assertEquals("[removeTask] : No task with the index -1 exists in this category", e.getMessage());
+
+        }
+
+        Assertions.assertTrue(failed);
+
+    }
 
 }
