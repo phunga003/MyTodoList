@@ -95,6 +95,7 @@ The seed can be applied to the application via command line arguments by filling
 
 ## Slide
 
+[slide link](https://docs.google.com/presentation/d/157fT0tYSpsc8lxB7zB0SIKau0x85sXoNQJulCJEJ-Hg/edit?usp=sharing)
 
 
 

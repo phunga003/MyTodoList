@@ -3,8 +3,6 @@ package MyTodoList;
 import MyTodoList.logic.Task;
 import MyTodoList.logic.TodoListHandler;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Main {
@@ -21,9 +19,6 @@ public class Main {
             System.out.println(e.getMessage());
             handler = new TodoListHandler();
         }
-
-        Path p = Paths.get(args[0]).toAbsolutePath();
-        System.out.println("Reading from: " + p);
 
         System.out.println("-- MY TODO LIST --");
         printAppUsage();
