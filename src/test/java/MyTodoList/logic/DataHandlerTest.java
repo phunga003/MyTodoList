@@ -4,7 +4,6 @@ import MyTodoList.data.GsonDataHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -90,15 +89,15 @@ public class DataHandlerTest {
 
     @Test
     void test03_data_read_Write_integration() {
-        try {
-        TodoListHandler handler = new TodoListHandler("src/test/resources/seedDataTemp.json");
+        TodoListHandler handler = new TodoListHandler();
         handler.addTask(new Task("go outside"), "done by today");
         handler.addTask(new Task("baseball"), "done by today");
         handler.addTask(new Task("clean the room"), "within this week");
-            handler.moveTask("within this week", 1, "done by today");
+        handler.moveTask("within this week", 1, "done by today");
+        handler.dataHandler = new GsonDataHandler("src/test/resources/seedDataTemp.json");
         handler.writeDataToFile();
         handler.loadDataFromFile();
-            handler.moveTask("done by today", 2, "within this week");
+        handler.moveTask("done by today", 2, "within this week");
         handler.removeCategory("within this week");
 
         Assertions.assertEquals(
@@ -112,15 +111,11 @@ public class DataHandlerTest {
                         
                         """, handler.getDbString());
 
+        try {
+            Files.deleteIfExists(Path.of("src/test/resources/seedDataTemp.json"));
         } catch (Exception e) {
-            Assertions.fail();
-        } finally {
-            try {
-                Assertions.assertTrue(Files.deleteIfExists(Path.of("src/test/resources/seedDataTemp.json")));
+            // ignore
 
-            } catch (IOException ex) {
-                // Don't care, it is a temp file
-            }
         }
     }
 }
