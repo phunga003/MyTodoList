@@ -44,7 +44,7 @@ public class TodoListHandlerTest {
         category.tasks.add(new Task("fazzbear"));
         handler.todoList.add(category);
 
-        Task targetTask = handler.removeTask(0, "foobar");
+        Task targetTask = handler.removeTask(1, "foobar");
         Assertions.assertEquals("fizzbuzz", targetTask.name);
 
         Assertions.assertFalse(category.taskNameIsInCategory("fizzbuzz"));
@@ -80,7 +80,7 @@ public class TodoListHandlerTest {
 
         boolean failed = false;
         try {
-            Task targetTask = handler.removeTask(1, "foobar");
+            Task targetTask = handler.removeTask(2, "foobar");
             Assertions.assertEquals("fizzbuzz", targetTask.name);
         } catch (RuntimeException e) {
             failed = true;
@@ -105,7 +105,7 @@ public class TodoListHandlerTest {
             Assertions.assertEquals("fizzbuzz", targetTask.name);
         } catch (RuntimeException e) {
             failed = true;
-            Assertions.assertEquals("[removeTask] : No task with the index -1 exists in this category", e.getMessage());
+            Assertions.assertEquals("[removeTask] : No task with the index -2 exists in this category", e.getMessage());
 
         }
 
@@ -175,7 +175,7 @@ public class TodoListHandlerTest {
         category.tasks.add(new Task("fizzfazz"));
         handler.todoList.add(category);
 
-        handler.moveTask("foobar", 0, "default");
+        handler.moveTask("foobar", 1, "default");
         Task movedTask = handler.defaultCategory.tasks.get(1);
         Assertions.assertEquals("fazzbear", movedTask.name);
 
@@ -192,7 +192,7 @@ public class TodoListHandlerTest {
         category.tasks.add(new Task("fizzfazz"));
         handler.todoList.add(category);
 
-        handler.moveTask("foobar", 0, "hello");
+        handler.moveTask("foobar", 1, "hello");
         Category newCategory = handler.getCategoryByName("hello", false);
         Assertions.assertEquals("fazzbear", newCategory.tasks.get(0).name);
     }
@@ -251,7 +251,7 @@ public class TodoListHandlerTest {
         } catch (RuntimeException e) {
             failed = true;
             Assertions.assertEquals(
-                    "[moveTask] : No task with the index -1 exists in this category",
+                    "[moveTask] : No task with the index -2 exists in this category",
                     e.getMessage());
 
         }

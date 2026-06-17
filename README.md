@@ -2,14 +2,44 @@
 
 A todo list application in java 17
 
+## To Run the Project
+
+Prerequisites:
+
+- Maven 3.9.16
+- Java 17
+
+From Repo root:
+
+```bash
+mvn compile
+
+# If you are on cmd or bash
+mvn exec:java -Dexec.mainClass="MyTodoList.Main" -Dexec.args="src/main/resources/seedData2.json"
+
+# If you are on Powershell
+mvn exec:java "-Dexec.mainClass=MyTodoList.Main" "-Dexec.args=src/main/resources/seedData2.json"
+```
+
+### Seed Data
+
+Seed data are two files. They can be found in
+
+- `src/main/resources/seedData2.json`
+- `src/test/resources/seedData.json`
+
+The seed can be applied to the application via command line arguments by filling in `-Dexec.args`
+> Note: The application only can take one file as seed. Multiple data files are not supported
+>
+
 ## Deliverables
 
-- [ ] Store tasks in a file
-- [ ] supports
-  - [ ] adding tasks
-  - [ ] removing tasks
-  - [ ] listing tasks
-  - [ ] classify tasks into different arbitrary categories
+- [X] Store tasks in a file
+- [X] supports
+  - [X] adding tasks
+  - [X] removing tasks
+  - [X] listing tasks
+  - [X] classify tasks into different arbitrary categories
 
 ## What is out of scope
 
@@ -28,7 +58,15 @@ A todo list application in java 17
 
 ## Application Limitations
 
-- Test suite does cross-calling for some tests, which is
+- Does not support atomic writing to files, a crash mid-writing will potentially corrupt data
+- Does not support cleaning of bad data inside the seed.
+- The application may produce undefined behavior if the following syntax rules are violated in the data file:
+  - Tasks with the same name living in the same category
+  - Does not have a 'default' category, even if it is empty
+  - Numeric data for instead of strings
+  - Overall json structure (see seed data)
+  - categories with the same name
+- Does not protect user's data privacy. All data files are in human-readable format
 
 ## Design
 
@@ -55,4 +93,8 @@ A todo list application in java 17
 - the database will always have a default category for safe category deletion (special case object)
   - system will support moving task between category for ease of use
 
-### Diagrams
+## Slide
+
+
+
+

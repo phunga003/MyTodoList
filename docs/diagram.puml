@@ -1,0 +1,99 @@
+@startuml diagram
+hide empty fields
+hide empty method
+package MyTodoList {
+    package data {
+        interface DataHandler {
+            + serialize(data: ArrayList<Category>): void
+            + deserialize(path: String): ArrayList<Category>
+        }
+
+        class GsonDataHandler implements DataHandler {
+            - filePath: Path
+            - gson: Gson
+            + GsonDataHandler(path String)
+            + serialize(data: ArrayList<Category>): void
+            + deserialize(path: String): ArrayList<Category>
+            ..helpers..
+            - writeToFile(path String): void
+            - readFromFile(): String
+            + getJsonString(db: ArrayList<Category>): String
+        }
+
+
+    }
+
+    package java.lang {
+        interface Comparable<T> {
+            compareTo(o: T) : int
+        }
+    }
+
+
+    package logic {
+        + class Category {
+            - {static} N_INDEX
+            ~ name: String
+            ~ tasks: ArrayList<Task>
+            ~ addTask(task:Task): void
+            ~ removeTask(index: int): Task
+            ~ getCategoryString(): String
+            ..helpers and wrappers..
+            ~ indexedRemoveTaskDecorator(index: int): Task
+            - isNotDuplicateTask(task : Task): bool
+            - verifyIndex(int):void
+            + compareTo(c: Category): int
+        }
+        note left of Category::indexedRemoveTaskDecorator
+        wrapper for UX
+        end note
+
+        + class Task {
+            ~ name: String
+            ~ desc: String
+            ~ getTaskString(): String
+            ..helpers and wrappers..
+            + compareTo(t: Task): int
+        }
+
+        + class TodoListHandler {
+            - db: ArrayList<Category>
+            - dataHandler: DataHandler
+            - dataFilePath: String
+            --
+            + TodoListHandler()
+            + TodoListHandler(filepath: String)
+            ..pubic api..
+            + addTask(task: Task, categoryName: String): void
+            + removeTask(index: int, categoryName: String): void
+            + getDbString(): String
+            ~ loadDataFromFile(path: String): void
+            + writeDataToFile(path: String): void
+            + moveTask(srcCategory: String, index: int, destCategory: String): void
+            + removeCategory(name: String): void
+            ..helpers..
+            ~ getCategoryByName(name: String, createIfNotFound: boolean): Category
+        }
+
+        Category -->"*" Task
+        DataHandler ..> Category
+        TodoListHandler -->"*" Category
+        TodoListHandler --> DataHandler
+
+    }
+
+    Category --|> java.lang.Comparable
+    Task --|> java.lang.Comparable
+
+    package presentation {
+        class Main {
+            - handler: TodoListHandler
+            - scanner: Scanner
+        }
+
+        Main -> TodoListHandler
+    }
+
+
+}
+@enduml

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class GsonDataHandler implements DataHandler {
     private final Gson gson;
-    Path filePath;
+    private final Path filePath;
 
     public GsonDataHandler(String filePath) {
         this.gson = new GsonBuilder().setPrettyPrinting().create();

@@ -19,11 +19,9 @@ public class TodoListHandler {
     }
 
     public TodoListHandler(String filepath) {
-        this.todoList = new ArrayList<>();
-        this.defaultCategory = new Category("default");
-        this.todoList.add(defaultCategory);
-
         this.dataHandler = new GsonDataHandler(filepath);
+        this.loadDataFromFile();
+        this.defaultCategory = getCategoryByName("default", true);
 
     }
 
@@ -59,7 +57,7 @@ public class TodoListHandler {
     public Task removeTask(int index, String categoryName) {
         try {
             Category targetCategory = getCategoryByName(categoryName, false);
-            return targetCategory.removeTask(index);
+            return targetCategory.indexedRemoveTaskDecorator(index);
         } catch (RuntimeException e) {
             throw new RuntimeException("[removeTask] : " + e.getMessage());
         }
@@ -95,7 +93,7 @@ public class TodoListHandler {
                 throw new IllegalArgumentException("Task already in category");
             }
 
-            dest.addTask(src.removeTask(srcIndex));
+            dest.addTask(src.indexedRemoveTaskDecorator(srcIndex));
 
         } catch (RuntimeException e) {
             throw new RuntimeException("[moveTask] : " + e.getMessage());
@@ -130,7 +128,7 @@ public class TodoListHandler {
         this.todoList = dataHandler.deserialize();
     }
 
-    void writeDataToFile() {
+    public void writeDataToFile() {
         dataHandler.serialize(this.todoList);
     }
 }
