@@ -126,8 +126,12 @@ public class CategoryTest {
 
     }
 
+    @Test
     void CategoryTest08_get_category_string() {
+        Category category = new Category("Larry");
+        category.addTask(new Task("t1"));
 
+        Assertions.assertEquals("[ Larry ]\n\t1. t1\n\n", category.getCategoryString());
     }
 
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 class Category {
     String name;
     ArrayList<Task> tasks;
+    static final int N_INDEX = 1;
 
     public Category(String name) {
         this.name = name;
@@ -42,4 +43,27 @@ class Category {
         return this.tasks.remove(index);
     }
 
+    // makes UX feels better
+    Task indexedRemoveTaskDecorator(int index) {
+        return this.removeTask(index - N_INDEX);
+    }
+
+    public String getCategoryString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[ ");
+        sb.append(this.name);
+        sb.append(" ]\n");
+
+        int index = N_INDEX;
+        for (Task t : tasks) {
+            sb.append("\t");
+            sb.append(index);
+            sb.append(". ");
+            // callee responsible for line termination
+            sb.append(t.getTaskString());
+            index++;
+        }
+
+        return sb.append("\n").toString();
+    }
 }

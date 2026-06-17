@@ -11,4 +11,9 @@ public class Task implements Comparable<Task> {
     public int compareTo(Task t) {
         return this.name.compareTo(t.name);
     }
+
+    // callee responsible for line termination
+    String getTaskString() {
+        return this.name + "\n";
+    }
 }
