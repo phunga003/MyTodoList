@@ -240,7 +240,7 @@ public class TodoListHandlerTest {
     }
 
     @Test
-    void TodoListHandlerTest13_moveTask_index_invalid() {
+    void TodoListHandlerTest15_moveTask_index_invalid() {
         TodoListHandler handler = new TodoListHandler();
         handler.defaultCategory.tasks.add(new Task("Drink Matcha Labubu"));
 
@@ -259,6 +259,74 @@ public class TodoListHandlerTest {
         Assertions.assertTrue(failed);
 
     }
+
+    @Test
+    void TodoListHandlerTest16_removeCategory_category_not_exist() {
+        TodoListHandler handler = new TodoListHandler();
+
+        boolean failed = false;
+        try {
+            handler.removeCategory("foobazz");
+        } catch (RuntimeException e) {
+            failed = true;
+            Assertions.assertEquals(
+                    "[removeCategory] : Category 'foobazz' not found",
+                    e.getMessage());
+
+        }
+
+        Assertions.assertTrue(failed);
+    }
+
+    @Test
+    void TodoListHandlerTest17_removeCategory_removing_default() {
+        TodoListHandler handler = new TodoListHandler();
+
+        boolean failed = false;
+        try {
+            handler.removeCategory("default");
+        } catch (RuntimeException e) {
+            failed = true;
+            Assertions.assertEquals(
+                    "[removeCategory] : Removing default category is forbidden",
+                    e.getMessage());
+
+        }
+
+        Assertions.assertTrue(failed);
+    }
+
+    @Test
+    void TodoListHandlerTest18_removeCategory_removing_nonempty_category() {
+        TodoListHandler handler = new TodoListHandler();
+
+        Category category = new Category("foobar");
+        category.tasks.add(new Task("fazzbear"));
+        category.tasks.add(new Task("fizzfazz"));
+        handler.todoList.add(category);
+
+        handler.removeCategory("foobar");
+        Assertions.assertEquals(1, handler.todoList.size());
+
+        for (Task t : category.tasks) {
+            Assertions.assertTrue(handler.defaultCategory.taskNameIsInCategory(t.name));
+        }
+    }
+
+    @Test
+    void TodoListHandlerTest19_removeCategory_removing_empty_category() {
+        TodoListHandler handler = new TodoListHandler();
+
+        Category category = new Category("foobar");
+        handler.todoList.add(category);
+
+        handler.removeCategory("foobar");
+        Assertions.assertEquals(1, handler.todoList.size());
+        Assertions.assertEquals(0, handler.defaultCategory.tasks.size());
+
+
+    }
+
 
 
 

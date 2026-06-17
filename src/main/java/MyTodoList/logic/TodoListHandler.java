@@ -88,6 +88,26 @@ public class TodoListHandler {
     }
 
     public void removeCategory(String categoryName) {
+        try {
+            Category targetCategory = getCategoryByName(categoryName, false);
+            if (targetCategory == this.defaultCategory) {
+                throw new RuntimeException("Removing default category is forbidden");
+            }
+
+            for (Task t : targetCategory.tasks) {
+
+                try {
+                    addTask(t, "default");
+                } catch (RuntimeException e) {
+                    // skip task
+                }
+            }
+
+            this.todoList.remove(targetCategory);
+
+        } catch (RuntimeException e) {
+            throw new RuntimeException("[removeCategory] : " + e.getMessage());
+        }
 
     }
 }
